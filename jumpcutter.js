@@ -1,11 +1,14 @@
 const { readFileSync, writeFileSync } = require("fs");
 const { pushCommand } = require("./utils");
+const { nvenc } = require("./option.json");
 
 module.exports = ({ filename, threshold = 30, time = 400 }) => {
   pushCommand(
-    `ffmpeg -i "${filename}.mp4" -af silencedetect=noise=${-Math.abs(
-      threshold
-    )}dB:d=${Math.abs(time / 1000)} -f null - 2> temp/temp.log.txt`
+    `ffmpeg -i "${filename}.mp4" ${
+      nvenc ? "-vcodec h264_nvenc " : ""
+    }-af silencedetect=noise=${-Math.abs(threshold)}dB:d=${Math.abs(
+      time / 1000
+    )} -f null - 2> temp/temp.log.txt`
   );
   const log = readFileSync("./temp/temp.log.txt", { encoding: "utf-8" });
   const meta = log
@@ -46,8 +49,8 @@ module.exports = ({ filename, threshold = 30, time = 400 }) => {
   );
   flip.forEach(({ start, end }, index) => {
     const command = `ffmpeg -i "${filename}.mp4" ${
-      start !== 0 ? `-ss ${start} ` : ""
-    }${
+      nvenc ? "-vcodec h264_nvenc " : ""
+    }${start !== 0 ? `-ss ${start} ` : ""}${
       end !== Infinity && !!end ? `-t ${end - start} ` : ""
     }temp/${filename}_${index}.mp4`;
     pushCommand(command);
@@ -58,6 +61,8 @@ module.exports = ({ filename, threshold = 30, time = 400 }) => {
     );
   });
   pushCommand(
-    `ffmpeg -f concat -i temp/temp.trims.txt -c copy ${filename}_jumpcut.mp4 -y`
+    `ffmpeg -f concat -i temp/temp.trims.txt ${
+      nvenc ? "-vcodec h264_nvenc " : ""
+    }-c copy ${filename}_jumpcut.mp4 -y`
   );
 };

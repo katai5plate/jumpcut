@@ -8,6 +8,7 @@
 
 - Node.js
 - ffmpeg
+- NVENC が使えない場合、`config.json` の `nvenc` を `false` にする
 
 ### GUI
 
