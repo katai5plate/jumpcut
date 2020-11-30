@@ -52,7 +52,10 @@ module.exports = {
       } ${filename}_%02d.mp4`
     );
     const filenames = readdirSync("./").filter(
-      (f) => f.includes(`${filename}_`) && f.match(/\.mp4$/)
+      (f) =>
+        f.match(new RegExp(`^${filename}_`)) &&
+        f.match(/\.mp4$/) &&
+        !f.includes("_jumpcut")
     );
     filenames.forEach((fn) =>
       jumpcutter({ filename: fn.match(/(^.*?)\.mp4/)[1], threshold, time })
@@ -62,7 +65,10 @@ module.exports = {
     const [_, prefix, threshold, time] = process.argv;
     if (!prefix) throw new Error("プレフィクスが未指定です");
     const filenames = readdirSync("./").filter(
-      (f) => f.includes(`${prefix}_`) && f.match(/\.mp4$/)
+      (f) =>
+        f.match(new RegExp(`^${prefix}_`)) &&
+        f.match(/\.mp4$/) &&
+        !f.includes("_jumpcut")
     );
     if (filenames.length === 0)
       throw new Error("プレフィクスに一致する動画がありません");
