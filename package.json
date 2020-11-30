@@ -4,7 +4,11 @@
   "description": "ジャンプカットバッチを作るテスト",
   "main": "index.js",
   "scripts": {
-    "start": "rimraf temp && mkdirp temp && node ."
+    "clean": "rimraf temp && mkdirp temp",
+    "start": "npm run clean && node -e \"require('.')['jcGUI']()\"",
+    "jc": "npm run clean && node -e \"require('.')['jcCUI']()\"",
+    "split": "node -e \"require('.')['split']()\"",
+    "split2jc": "npm run clean && node -e \"require('.')['split2Jc']()\""
   },
   "repository": {
     "type": "git",
