@@ -4,7 +4,7 @@
   "description": "ジャンプカットバッチを作るテスト",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "rimraf temp && mkdirp temp && node ."
   },
   "repository": {
     "type": "git",
@@ -16,5 +16,10 @@
   "bugs": {
     "url": "https://github.com/katai5plate/jumpcut/issues"
   },
-  "homepage": "https://github.com/katai5plate/jumpcut#readme"
+  "homepage": "https://github.com/katai5plate/jumpcut#readme",
+  "dependencies": {
+    "mkdirp": "^1.0.4",
+    "prompts": "^2.4.0",
+    "rimraf": "^3.0.2"
+  }
 }
