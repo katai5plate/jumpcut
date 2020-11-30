@@ -8,7 +8,8 @@
     "start": "npm run clean && node -e \"require('.')['jcGUI']()\"",
     "jc": "npm run clean && node -e \"require('.')['jcCUI']()\"",
     "split": "node -e \"require('.')['split']()\"",
-    "split2jc": "npm run clean && node -e \"require('.')['split2Jc']()\""
+    "split2jc": "npm run clean && node -e \"require('.')['split2Jc']()\"",
+    "jcs": "npm run clean && node -e \"require('.')['jcs']()\""
   },
   "repository": {
     "type": "git",

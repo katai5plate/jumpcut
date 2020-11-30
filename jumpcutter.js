@@ -51,7 +51,11 @@ module.exports = ({ filename, threshold = 30, time = 400 }) => {
       end !== Infinity && !!end ? `-t ${end - start} ` : ""
     }temp/${filename}_${index}.mp4`;
     pushCommand(command);
-    console.log(`DONE: ${index} / ${flip.length - 1}`);
+    console.log(
+      `[${filename}] DONE: ${index} / ${flip.length - 1} ... ${Math.floor(
+        (index / (flip.length - 1)) * 100
+      )}%`
+    );
   });
   pushCommand(
     `ffmpeg -f concat -i temp/temp.trims.txt -c copy ${filename}_jumpcut.mp4 -y`

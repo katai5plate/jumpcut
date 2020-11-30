@@ -58,4 +58,16 @@ module.exports = {
       jumpcutter({ filename: fn.match(/(^.*?)\.mp4/)[1], threshold, time })
     );
   },
+  jcs() {
+    const [_, prefix, threshold, time] = process.argv;
+    if (!prefix) throw new Error("プレフィクスが未指定です");
+    const filenames = readdirSync("./").filter(
+      (f) => f.includes(`${prefix}_`) && f.match(/\.mp4$/)
+    );
+    if (filenames.length === 0)
+      throw new Error("プレフィクスに一致する動画がありません");
+    filenames.forEach((fn) =>
+      jumpcutter({ filename: fn.match(/(^.*?)\.mp4/)[1], threshold, time })
+    );
+  },
 };
