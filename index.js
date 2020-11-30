@@ -80,6 +80,6 @@ const pushCommand = (code) => {
     console.log(`DONE: ${index} / ${flip.length}`);
   });
   pushCommand(
-    `ffmpeg -f concat -i temp/temp.trims.txt -c copy ${originalFileName}_jumpcut.mp4 -y`
+    `ffmpeg -f concat -i temp/temp.trims.txt -c copy ${fileName}_jumpcut.mp4 -y`
   );
 })();
